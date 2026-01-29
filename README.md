@@ -1,3 +1,3 @@
 # git-lab
 This change is from feature branch.
-This is modified on main branch - Version A
+This is a CONFLICTING change on a new branch
