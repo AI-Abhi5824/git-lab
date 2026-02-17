@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="text-center mb-4" data-i18n="guard_login">Guard Login</h3>
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label" data-i18n="username">Username</label>
+            <input type="text" name="username" class="form-control form-control-lg" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label" data-i18n="password">Password</label>
+            <input type="password" name="password" class="form-control form-control-lg" required />
+          </div>
+          <button class="btn btn-primary btn-lg w-100" type="submit" data-i18n="login">Login</button>
+        </form>
+        <p class="small mt-3 text-muted">Demo: guard / guard123</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

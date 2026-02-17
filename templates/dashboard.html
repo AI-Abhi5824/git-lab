@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h4 data-i18n="verify_student">Verify Student</h4>
+        <form method="POST" id="verifyForm">
+          <label class="form-label" data-i18n="prn_input_label">Enter text with PRN</label>
+          <textarea class="form-control form-control-lg" id="prnText" name="prn_text" rows="3" placeholder="My PRN is 2401132002" required></textarea>
+          <div class="d-flex gap-2 mt-3">
+            <button type="button" class="btn btn-secondary btn-lg" id="micBtn" data-i18n="start_mic">🎤 Start Mic</button>
+            <button type="submit" class="btn btn-success btn-lg" data-i18n="verify">Verify</button>
+          </div>
+          <p id="voiceStatus" class="mt-2 text-muted"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 data-i18n="recent_logs">Recent Access Logs</h5>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr><th>PRN</th><th data-i18n="result">Result</th><th data-i18n="time">Time</th></tr>
+            </thead>
+            <tbody>
+              {% for log in recent_logs %}
+              <tr>
+                <td>{{ log.prn }}</td>
+                <td>{{ log.result }}</td>
+                <td>{{ log.timestamp.strftime('%H:%M:%S') }}</td>
+              </tr>
+              {% else %}
+              <tr><td colspan="3" class="text-muted" data-i18n="no_logs">No logs yet</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

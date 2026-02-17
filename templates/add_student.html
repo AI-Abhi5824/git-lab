@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h4>{{ 'Edit Student' if student else 'Add Student' }}</h4>
+        <form method="POST">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">PRN</label>
+              <input name="prn" class="form-control" value="{{ student.prn if student else '' }}" {{ 'readonly' if student else '' }} required>
+            </div>
+            <div class="col-md-6"><label class="form-label" data-i18n="name">Name</label><input name="name" class="form-control" value="{{ student.name if student else '' }}" required></div>
+            <div class="col-md-6"><label class="form-label" data-i18n="branch">Branch</label><input name="branch" class="form-control" value="{{ student.branch if student else '' }}" required></div>
+            <div class="col-md-3"><label class="form-label" data-i18n="year">Year</label><input name="year" class="form-control" value="{{ student.year if student else '' }}" required></div>
+            <div class="col-md-3"><label class="form-label">Section</label><input name="section" class="form-control" value="{{ student.section if student else '' }}"></div>
+            <div class="col-md-6"><label class="form-label">Email</label><input name="email" type="email" class="form-control" value="{{ student.email if student else '' }}"></div>
+            <div class="col-md-6"><label class="form-label">Phone</label><input name="phone" class="form-control" value="{{ student.phone if student else '' }}"></div>
+            <div class="col-md-6"><label class="form-label">Photo URL</label><input name="photo_url" class="form-control" value="{{ student.photo_url if student else '' }}"></div>
+            <div class="col-md-6">
+              <label class="form-label" data-i18n="status">Status</label>
+              <select name="status" class="form-select">
+                <option value="active" {{ 'selected' if student and student.status=='active' else '' }}>Active</option>
+                <option value="blocked" {{ 'selected' if student and student.status=='blocked' else '' }}>Blocked</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-success btn-lg mt-3" type="submit">{{ 'Update' if student else 'Add' }}</button>
+          <a class="btn btn-secondary btn-lg mt-3" href="{{ url_for('student_list') }}">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
