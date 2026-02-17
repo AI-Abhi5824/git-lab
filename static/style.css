@@ -1,0 +1,19 @@
+body {
+  background: #f4f7fb;
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.btn-lg {
+  font-weight: 600;
+}
+
+.student-photo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid #e5e5e5;
+}

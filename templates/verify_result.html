@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h4 class="mb-3" data-i18n="verification_result">Verification Result</h4>
+        {% if student %}
+        <div class="d-flex flex-column flex-md-row gap-4 align-items-center">
+          <img src="{{ student.photo_url if student.photo_url else 'https://via.placeholder.com/150?text=No+Photo' }}" alt="student" class="student-photo" onerror="this.src='https://via.placeholder.com/150?text=No+Photo'" />
+          <div>
+            <p><strong data-i18n="name">Name</strong>: {{ student.name }}</p>
+            <p><strong>PRN</strong>: {{ student.prn }}</p>
+            <p><strong data-i18n="branch">Branch</strong>: {{ student.branch }}</p>
+            <p><strong data-i18n="year">Year</strong>: {{ student.year }}</p>
+            <p>
+              <strong data-i18n="status">Status</strong>:
+              <span class="badge {{ 'bg-success' if student.status == 'active' else 'bg-danger' }}">{{ student.status|capitalize }}</span>
+            </p>
+          </div>
+        </div>
+        {% else %}
+        <div class="alert alert-danger">{{ result }}{% if prn %} (PRN: {{ prn }}){% endif %}</div>
+        {% endif %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary mt-3" data-i18n="back_dashboard">Back to Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
