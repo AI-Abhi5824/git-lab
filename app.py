@@ -2,7 +2,7 @@ import csv
 import logging
 import os
 
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from flask_login import (LoginManager, current_user, login_required, login_user,
                          logout_user)
 
@@ -190,6 +190,60 @@ def delete_student(prn):
     db.session.commit()
     flash("Student deleted.", "info")
     return redirect(url_for("student_list"))
+
+
+CHATBOT_KNOWLEDGE = {
+    "what is artificial intelligence": "Artificial Intelligence is a technology that enables machines to simulate human intelligence and perform tasks such as learning, reasoning, and decision-making.",
+    "what is machine learning": "Machine Learning is a branch of AI where systems learn patterns from data and improve performance without being explicitly programmed for every rule.",
+    "what is nlp": "Natural Language Processing (NLP) helps computers understand and generate human language in text or speech form.",
+    "what is python": "Python is a high-level programming language known for readability and strong support for web development, AI, and automation.",
+    "what is flask": "Flask is a lightweight Python web framework used to build web applications and APIs quickly.",
+}
+
+
+def generate_chatbot_response(message, history=None):
+    history = history or []
+    normalized = " ".join((message or "").strip().lower().split())
+
+    if not normalized:
+        return "Please type a message so I can help you."
+
+    if normalized in CHATBOT_KNOWLEDGE:
+        return CHATBOT_KNOWLEDGE[normalized]
+
+    greetings = {"hi", "hello", "hey", "good morning", "good evening"}
+    if normalized in greetings:
+        return "Hello! Ask me anything about AI, machine learning, NLP, Python, or Flask."
+
+    if "your name" in normalized:
+        return "I am Practical-5 Chatbot, built to provide intelligent responses to your queries."
+
+    if "help" in normalized:
+        return "You can ask questions like: What is Artificial Intelligence?, What is NLP?, or What is Flask?"
+
+    if history:
+        return "I understand your question. I am still learning, but I can explain AI, NLP, machine learning, Python, and Flask right now."
+
+    return "I am not fully trained for that yet. Please ask about AI, machine learning, NLP, Python, or Flask."
+
+
+@app.route("/chatbot")
+@login_required
+def chatbot_view():
+    return render_template("chatbot.html")
+
+
+@app.route("/api/chatbot", methods=["POST"])
+@login_required
+def chatbot_api():
+    payload = request.get_json(silent=True) or {}
+    message = str(payload.get("message", ""))
+    history = payload.get("history", [])
+    if not isinstance(history, list):
+        history = []
+
+    reply = generate_chatbot_response(message, history)
+    return jsonify({"reply": reply})
 
 
 EXPECTED_HEADER = ["prn", "name", "branch", "year", "section", "email", "phone", "photo_url", "status"]
