@@ -10,6 +10,7 @@ A complete Flask full-stack project for guard-friendly gate verification in coll
 - CSV import with strict header validation
 - Multilingual UI (English, Hindi, Marathi)
 - Verification logging to database and `logs/access.log`
+- Chatbot module with interactive Q&A interface and instant responses
 
 ## Setup
 ```bash
@@ -53,3 +54,10 @@ python import_students.py students.csv
 4. Open Students section and test CRUD.
 5. Use language dropdown to switch English/Hindi/Marathi.
 6. Check recent logs and `logs/access.log`.
+
+
+## Chatbot (Practical 5)
+- Open **Chatbot** from the top menu after login.
+- Type a question (example: `What is Artificial Intelligence?`).
+- The chatbot processes the message and returns an intelligent response in chat format.
+- Conversation continues in the same chat window for follow-up questions.
